@@ -553,4 +553,40 @@ body
         $expected = '<div className="foo bar">Hello</div>';
         $this->assertSame($expected, $actual);
     }
+
+    public function testCyrillicContent()
+    {
+        $template = file_get_contents(__DIR__ . '/../templates/auxiliary/cyrillic.jade');
+        $expected = trim(file_get_contents(__DIR__ . '/../templates/auxiliary/cyrillic.html'));
+
+        $data = array(
+            'data' => array(
+                'city' => array(
+                    'name' => 'Москва',
+                    'code' => '800',
+                    'free' => '8 800 555 35 35',
+                    'phone' => '555 35 35',
+                    'soname' => 'Москве',
+                    'domain' => 'site.ru',
+                ),
+                'sro' => array(
+                    'name' => 'РСК',
+                    'link' => '',
+                ),
+                'fond' => '1000000',
+                'summ' => '100000',
+                'user' => array(
+                    'name' => 'Админ Сайта',
+                    'term' => '',
+                    'image' => '/images/users/admin.png',
+                    'email' => 'admin@site.ru',
+                    'phone' => '+7 800 555 35 35',
+                    'image_sign' => '',
+                ),
+            ),
+        );
+
+        $jade = new Jade();
+        $this->assertSame($expected, $jade->render($template, $data));
+    }
 }

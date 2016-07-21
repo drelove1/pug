@@ -1,0 +1,135 @@
+doctype html
+html
+  head
+    meta(http-equiv='Content-Type', content='text/html; charset=UTF-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+  body
+    div(style='background-color: #fff; font-family: Arial, sans-serif;')
+      div(style='width: 620px; margin: 0 auto;')
+        table(style='width: 100%; border-collapse: collapse; margin-bottom: 10px;')
+          tbody
+            tr
+              td
+                img(src='/images/offers/logo.png')
+              td
+                div(style='padding-right: 10px')
+                  p(style='font-size: 28px; color: #5a5a5a; text-align: right; margin: 0px;')
+                    span(style='color: #999;') 8 
+                      = $data['city']['code']
+                    |  
+                    = $data['city']['phone']
+        table(style='width: 100%;  border-collapse: collapse; border-radius: 9px; margin-bottom: 0px; box-shadow: 0 30px 50px -50px gray;')
+          tbody
+            tr
+              td.editable(style='width: 330px; padding: 25px; background-color: #205ba3; vertical-align: top; border-top-left-radius: 9px;')
+                p(style='font-size: 21px; font-weight: bold; font-family: Trebuchet MS; color: #fff;') Взносы в наше 
+                  a(style='color: #fff; font-size: 21px; font-weight: bold;', href=$data['sro']['link'], target="_blank") СРО &laquo;
+                    = $data['sro']['name']
+                    | &raquo;
+                p(style='font-size: 16px; color: #fff;') Все взносы оплачиваете напрямую в&nbsp;СРО:
+                ul
+                  - if (!empty($data['free']['chlen'])):
+                    li(style='font-size: 16px; color: #fff; margin-bottom: 7px;') В ПОДАРОК &mdash; вступительный взнос;
+                  - else:
+                    li(style='font-size: 16px; color: #fff; margin-bottom: 7px;') 5 000 руб. &mdash; вступительный взнос;
+                  - endif
+                  - if (!empty($data['free']['vstup'])):
+                    li(style='font-size: 16px; color: #fff; margin-bottom: 7px;') В ПОДАРОК &mdash; членский взнос;
+                  - else:
+                    li(style='font-size: 16px; color: #fff; margin-bottom: 7px;') 5 000 руб. &mdash; членский взнос;
+                  - endif
+                  - if (empty($data['payment_delay'])):
+                    li(style='font-size: 16px; color: #fff; margin-bottom: 7px;')= number_format($data['fond'], 0, '', ' ')
+                      |  руб. &mdash; взнос в компфонд.
+                  - else:
+                    li(style='font-size: 16px; color: #fff; margin-bottom: 7px;')= number_format($data['summ'], 0, '', ' ')
+                      |  руб. &mdash; взнос в компфонд.*
+                  - endif
+                p(style='font-size: 16px; color: #fff;') Стоимость наших услуг &mdash; 0 руб.
+                - if (!empty($data['payment_delay'])):
+                  p(style='font-size: 12px; color: #fff; margin-top: 30px; line-height: 1.5;') * оставшиеся
+                    = number_format($data['fond'] - $data['summ'], 0, '', ' ')
+                    | руб выплачиваются равными долями в течение 12 месяцев под 10% годовых
+                - endif
+              td(style='width: 200px; padding: 15px 0 15px 40px; background-color: #fefefe; vertical-align: top; border-top-right-radius: 9px; border-bottom-right-radius: 9px;', rowspan=3)
+                img(style='width: 90%; border-radius: 100px;', src= $data['user']['image'])
+                div(style='')
+                  p(style='font-size: 13px; color: #000;')
+                    span(style='font-weight: bold;')= $data['user']['name']
+                    | ,
+                    br
+                    | ведущий специалист
+                    br
+                    | компании &laquo;СтройЮрист&raquo;
+                  p(style='font-size: 13px; color: #000;') тел.: 
+                    span(style='font-weight: bold;')= $data['user']['phone']
+                  p(style='font-size: 13px; color: #000;') e-mail: 
+                    a(style='font-size: 13px; color: #000;', href='mailto:'.$data['user']['email'].'?subject=%D0%97%D0%B0%D1%8F%D0%B2%D0%BA%D0%B0%20%D0%BD%D0%B0%20%D0%BF%D0%BE%D0%BB%D1%83%D1%87%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%B4%D0%BE%D0%BF%D1%83%D1%81%D0%BA%D0%B0%20%D0%A1%D0%A0%D0%9E%20%D0%B2%20%D1%80%D0%B0%D1%81%D1%81%D1%80%D0%BE%D1%87%D0%BA%D1%83%200%')= $data['user']['email']
+                  img(src=$data['user']['image_sign'], style='margin: 30px 40px 0; width: 90px; padding: 5px; border-radius: 9px; background-color: #fefefe;')
+                  p(style='line-height: 1.4; font-size: 13px; color: #777; margin-top: 50px;') Компания &laquo;СтройЮрист&raquo;
+                    br
+                    | оформляет допуски&nbsp;СРО, лицензии&nbsp;МЧС, сертификаты&nbsp;ISO,
+                    br
+                    | регистрирует и&nbsp;ликвидирует фирмы
+                    = 'в '.$data['city']['soname']
+                    br
+                    | и других городах России более&nbsp;14&nbsp;лет.
+                  p(style='line-height: 1.4; font-size: 13px; color: #777; margin-top: 30px;')
+                    a(style='font-size: 14px; font-weight: bold; color: #777;', href='http://'.$data["city"]["domain"].'/?utm_source=email&utm_medium=kp&utm_campaign=sro&utm_term='.$data["user"]["term"]) site.ru
+                  p(style='line-height: 1.7; font-size: 13px; color: #777; margin-top: 30px;') Горячая линия
+                    br
+                    span(style='font-weight: bold;')= $data['city']['free']
+            - if (!empty($data['payment_delay'])):
+              tr
+                td.editable(style='width: 320px; padding: 20px 15px 20px 25px; background-color: #e94f45; border-top: 1px solid #fff; vertical-align: top;')
+                  p(style='font-size: 21px; font-family: Trebuchet MS; color: #fff; margin-bottom: 10px; line-height: 1.4;') Оплати полный компфонд и&nbsp;получи 
+                    span(style='font-weight: bold;') экономию 
+                      = number_format(($data['fond'] - $data['summ']) / 10, 0, '', ' ')
+                      |  руб,
+                  p(style='font-size: 14px; color: #fff; margin-top: 20px; margin-bottom: 0px; line-height: 1.5;') а&nbsp;также бессрочный сертификат &laquo;лицензия МЧС за 50 000 руб&raquo; &mdash; В ПОДАРОК!
+            - else:
+              tr
+                td.editable(style='width: 320px; padding: 20px 15px 20px 25px; background-color: #20a13a; border-top: 1px solid #fff; vertical-align: top;')
+                  p(style='font-size: 21px; font-family: Trebuchet MS; color: #fff; margin-bottom: 10px; line-height: 1.4;') Оплачивая полный компфонд
+                    br
+                    | Вы 
+                    span(style='font-weight: bold;') экономите 
+                      = number_format(($data['fond'] - $data['summ']) / 10, 0, '', ' ')
+                      |  руб,
+                  p(style='font-size: 14px; color: #fff; margin-top: 20px; margin-bottom: 0px; line-height: 1.5;') В&nbsp;ПОДАРОК &mdash; бессрочный сертификат на&nbsp;получение лицензии&nbsp;МЧС за&nbsp;50&nbsp;000&nbsp;руб.
+            - endif
+            tr
+              td.editable(style='width: 320px; padding: 20px 25px 5px; background-color: #2a83c7; border-top: 1px solid #fff; border-bottom-left-radius: 9px; vertical-align: top;')
+                p(style='font-size: 21px; font-weight: bold; font-family: Trebuchet MS; color: #fff;') Наши преимущества
+                ul(style='margin: 0; padding-left: 20px;')
+                  li(style='font-size: 16px; color: #fff; margin-bottom: 20px;') Дарим 3 сертификата ISO
+                  li(style='font-size: 16px; color: #fff; margin-bottom: 20px;') Дарим страховку от рисков на&nbsp;2&nbsp;млн&nbsp;руб.
+                  li(style='font-size: 16px; color: #fff; margin-bottom: 20px;') 100% гарантия «безболезненного» прохождения плановых проверок
+                    // p(style='font-size: 13px; color: #eee; margin-top: 5px; line-height: 1.4;') Мы это делаем, так как у нас давние партнерские отношения с СРО
+                  - if (!empty($data['reviews'])):
+                    li(style='font-size: 16px; color: #fff; margin-bottom: 20px;') Клиенты
+                      = 'в '.$data['city']['soname']
+                      p(style='font-size: 13px; color: #eee; margin-top: 5px; line-height: 1.4;')= implode($data['reviews'], ', ')
+                        | и другие
+                        br
+                        | Читайте отзывы на 
+                        a(style='color: #eee', href='http://'.$data['city']['domain'].'/reviews/?utm_source=email&utm_medium=kp&utm_campaign=sro&utm_term='.$data['user']['term']) нашем сайте
+                  - endif
+        table(style='width: 100%; padding: 5px 15px 0;')
+          tbody
+            tr
+              td(colspan=2)
+                p(style='color: #000; font-size: 18px; font-weight: bold; font-family: Trebuchet MS; margin-top: 10px; margin-bottom: 0px;') Список необходимых документов для СРО
+            tr
+              td(style='width: 50%; vertical-align: top;')
+                ol(style='line-height: 1.7; font-size: 12px; color: #000; margin-top: 10px; margin-bottom: 0;')
+                  li Реквизиты;
+                  li Свидетельства ОГРН и ИНН;
+                  li Решение о создании юр. лица;
+                  li Приказ о назначении директора;
+                  li Выписка из ЕГРЮЛ и коды статистики;
+              td(style='width: 50%;vertical-align: top;')
+                ol(start=6, style='line-height: 1.7; font-size: 12px; color: #000; margin-top: 10px; margin-bottom: 0; ')
+                  li Копия устава;
+                  li Паспорт директора (цветная копия, фото&nbsp;и&nbsp;прописка);
+                  li Договор аренды на помещение, акт&nbsp;приёма-передачи.
