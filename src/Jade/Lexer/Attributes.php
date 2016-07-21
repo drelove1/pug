@@ -82,7 +82,7 @@ class Attributes
         return preg_replace_callback('/([\'"]).*?(?<!\\\\)(?:\\\\\\\\)*\1/', array($this, 'replaceInterpolationsInStrings'), $attr);
     }
 
-    protected function parseEqual($state, &$key, &$val, $char, &$escapedAttribute, $previousChar, &$states)
+    public function parseEqual($state, &$key, &$val, $char, &$escapedAttribute, $previousChar, &$states)
     {
         switch ($state) {
             case 'key char':
